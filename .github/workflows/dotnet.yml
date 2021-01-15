@@ -2,9 +2,9 @@ name: .NET
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, r_* ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, r_* ]
 
 jobs:
   build:
@@ -23,3 +23,20 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+    - name: Create a Release
+      if: github.event_name == 'push'
+      env:
+        BUILD_MAJOR: 0
+        BUILD_MINOR: 1
+        BUILD_REVISION: 0
+        BUILD_PRERELEASE: ${{ github.ref == 'refs/heads/master' ? '-alpha' : '' }}
+        BUILD_VERSION: v$BUILD_MAJOR.$BUILD_MINOR.$BUILD_REVISION.$GITHUB_RUN_NUMBER$BUILD_PRERELEASE
+      uses: actions/create-release@v1.1.4
+      with:
+        # The name of the tag. This should come from the webhook payload, `github.GITHUB_REF` when a user pushes a new tag
+        tag_name: $BUILD_VERSION
+        # The name of the release. For example, `Release v1.0.1`
+        release_name: $BUILD_VERSION
+        # `true` to identify the release as a prerelease. `false` to identify the release as a full release. Default: `false`
+        prerelease: github.ref == 'refs/heads/master'
+
