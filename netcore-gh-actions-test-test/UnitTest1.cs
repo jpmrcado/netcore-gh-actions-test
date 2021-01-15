@@ -11,7 +11,7 @@ namespace netcore_gh_actions_test_test
         }
 
         [Fact]
-        public void Test2()
+        public void Test1a()
         {
             Assert.True(true);
         }
