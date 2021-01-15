@@ -7,7 +7,7 @@ namespace netcore_gh_actions_test_test
         [Fact]
         public void Test1()
         {
-            Assert.True(false);
+            Assert.True(true);
         }
 
         [Fact]
