@@ -24,12 +24,12 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - name: Set variables
-        if: github.event_name == 'push'
-        id: setvars
-        run: |
-          if [[ "${{github.base_ref}}" == "master" || "${{github.ref}}" == "refs/heads/master" ]]; then
-            echo "::set-output name=BUILD_PRERELEASE::-alpha"
-          fi
+      if: github.event_name == 'push'
+      id: setvars
+      run: |
+        if [[ "${{github.base_ref}}" == "master" || "${{github.ref}}" == "refs/heads/master" ]]; then
+          echo "::set-output name=BUILD_PRERELEASE::-alpha"
+        fi
     - name: Create a Release
       if: github.event_name == 'push'
       env:
