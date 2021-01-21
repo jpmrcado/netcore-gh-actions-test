@@ -40,9 +40,9 @@ jobs:
         BUILD_REVISION: 0
       with:
         # The name of the tag. This should come from the webhook payload, `github.GITHUB_REF` when a user pushes a new tag
-        tag_name: v${{env.BUILD_MAJOR}}.${{env.BUILD_MINOR}}.${{env.BUILD_REVISION}}.$GITHUB_RUN_NUMBER${{ steps.vars.outputs.BUILD_PRERELEASE }}
+        tag_name: v${{env.BUILD_MAJOR}}.${{env.BUILD_MINOR}}.${{env.BUILD_REVISION}}.${{github.run_number}}${{ steps.vars.outputs.BUILD_PRERELEASE }}
         # The name of the release. For example, `Release v1.0.1`
-        release_name: v${{env.BUILD_MAJOR}}.${{env.BUILD_MINOR}}.${{env.BUILD_REVISION}}.$GITHUB_RUN_NUMBER${{ steps.vars.outputs.BUILD_PRERELEASE }}
+        release_name: v${{env.BUILD_MAJOR}}.${{env.BUILD_MINOR}}.${{env.BUILD_REVISION}}.${{github.run_number}}${{ steps.vars.outputs.BUILD_PRERELEASE }}
         # `true` to identify the release as a prerelease. `false` to identify the release as a full release. Default: `false`
-        prerelease: true # github.ref == 'refs/heads/master'
+        prerelease: ${{github.ref == 'refs/heads/master'}}
 
