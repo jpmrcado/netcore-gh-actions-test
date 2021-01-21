@@ -16,6 +16,6 @@
     }
   ],
   "schedule": [
-    "before 9am on the first thursday of the month"
+    "before 9am on the first weekday of the month"
   ]
 }
