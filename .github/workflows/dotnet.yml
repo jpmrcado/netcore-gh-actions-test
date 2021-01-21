@@ -23,10 +23,6 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
-    - name: Set variables
-      if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-      env:
-        BUILD_PRERELEASE: '-alpha'
     - name: Create a Release
       if: github.event_name == 'push'
       uses: actions/create-release@v1.1.4
@@ -35,6 +31,7 @@ jobs:
         BUILD_MAJOR: 0
         BUILD_MINOR: 1
         BUILD_REVISION: 0
+        BUILD_PRERELEASE: {{ github.ref == 'refs/heads/master' && '-alpha' || '' }}
       with:
         # The name of the tag. This should come from the webhook payload, `github.GITHUB_REF` when a user pushes a new tag
         tag_name: v${{env.BUILD_MAJOR}}.${{env.BUILD_MINOR}}.${{env.BUILD_REVISION}}.${{github.run_number}}${{ env.BUILD_PRERELEASE }}
