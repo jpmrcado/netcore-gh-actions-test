@@ -14,5 +14,8 @@
       "groupName": "all non-major dependencies",
       "groupSlug": "all-minor-patch"
     }
+  ],
+  "schedule": [
+    "before 9am on the first thursday of the month"
   ]
 }
