@@ -24,12 +24,9 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - name: Set variables
-      if: github.event_name == 'push'
-      id: setvars
-      run: |
-        if [[ "${{github.base_ref}}" == "master" || "${{github.ref}}" == "refs/heads/master" ]]; then
-          echo "::set-output name=BUILD_PRERELEASE::-alpha"
-        fi
+      if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+      env:
+        BUILD_PRERELEASE: '-alpha'
     - name: Create a Release
       if: github.event_name == 'push'
       uses: actions/create-release@v1.1.4
@@ -40,9 +37,9 @@ jobs:
         BUILD_REVISION: 0
       with:
         # The name of the tag. This should come from the webhook payload, `github.GITHUB_REF` when a user pushes a new tag
-        tag_name: v${{env.BUILD_MAJOR}}.${{env.BUILD_MINOR}}.${{env.BUILD_REVISION}}.${{github.run_number}}${{ steps.vars.outputs.BUILD_PRERELEASE }}
+        tag_name: v${{env.BUILD_MAJOR}}.${{env.BUILD_MINOR}}.${{env.BUILD_REVISION}}.${{github.run_number}}${{ env.BUILD_PRERELEASE }}
         # The name of the release. For example, `Release v1.0.1`
-        release_name: v${{env.BUILD_MAJOR}}.${{env.BUILD_MINOR}}.${{env.BUILD_REVISION}}.${{github.run_number}}${{ steps.vars.outputs.BUILD_PRERELEASE }}
+        release_name: v${{env.BUILD_MAJOR}}.${{env.BUILD_MINOR}}.${{env.BUILD_REVISION}}.${{github.run_number}}${{ env.BUILD_PRERELEASE }}
         # `true` to identify the release as a prerelease. `false` to identify the release as a full release. Default: `false`
         prerelease: ${{github.ref == 'refs/heads/master'}}
 
