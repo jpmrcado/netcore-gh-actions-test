@@ -36,7 +36,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BUILD_MAJOR: 0
-        BUILD_MINOR: 1
+        BUILD_MINOR: 2
         BUILD_REVISION: 0
       with:
         # The name of the tag. This should come from the webhook payload, `github.GITHUB_REF` when a user pushes a new tag
