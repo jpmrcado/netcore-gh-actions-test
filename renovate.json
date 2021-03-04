@@ -1,21 +1,10 @@
 {
   "extends": [
-    "config:base"
+    "config:base",
+    ":preserveSemverRanges"
   ],
-  "packageRules": [
-    {
-      "packagePatterns": [
-        "*"
-      ],
-      "updateTypes": [
-        "minor",
-        "patch"
-      ],
-      "groupName": "all non-major dependencies",
-      "groupSlug": "all-minor-patch"
-    }
-  ],
+  "groupName": "all",
   "html": {
-    "fileMatch": ["\\.(html|cshtml)?$"]
+    "fileMatch": ["\\.(html|cshtml|aspx)?$"]
   }
 }
