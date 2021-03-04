@@ -1,6 +1,6 @@
 {
   "groupName": "all",
-  "separateMajorMinor" "false",
+  "separateMajorMinor": false,
   "html": {
     "fileMatch": ["\\.(html|cshtml|aspx)?$"]
   }
